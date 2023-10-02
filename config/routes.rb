@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "events#index"
+  root to: 'pages#welcome'
+  resources :events, only: %i[index new create edit update destroy]
 
-  resources :events
-  resources :invitations
-
+  resources :events, only: %i[show] do
+    resources :invitations
+  end
 end

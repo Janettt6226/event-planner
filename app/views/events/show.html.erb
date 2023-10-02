@@ -1,0 +1,15 @@
+<h1><%= @event.title %></h1>
+
+<p>Date: <%= @event.start_time %></p>
+<p>Place: <%= @event.location %></p>
+<p>Description: <%= @event.description %></p>
+<h5>People invited:</h5>
+<% @event.invitations.each do |invitation| %>
+  <ul>
+    <li><%= invitation.user.username %></li>
+  </ul>
+<% end %>
+
+<%= link_to "Update event", edit_event_path(@event) %>
+<%= link_to "Cancel event", event_path(@event), data: { "turbo-method": :delete,  turbo_confirm: "Are you sure?" }  %>
+<%= console %>

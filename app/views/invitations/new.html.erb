@@ -1,0 +1,11 @@
+<h1>Invite friends</h1>
+
+<%= console %>
+
+<%= simple_form_for [@event, @invitation] do |f| %>
+  <div class="form-group">
+    <label for="invitation_user_ids">Select Users to Invite</label>
+    <%= f.select :usernames, User.all.pluck(:username).zip(User.all.pluck(:username)).to_h, {}, { multiple: true } %>
+  </div>
+  <%= f.submit "Invite Users" %>
+<% end %>
