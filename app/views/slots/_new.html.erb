@@ -1,0 +1,5 @@
+<h1>Suggest a time slot</h1>
+<%= simple_form_for [@event, @slot] do |f| %>
+  <%= f.input :date %>
+  <%= f.submit "Suggest this slot" %>
+<% end %>

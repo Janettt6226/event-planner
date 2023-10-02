@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_02_142223) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_02_160412) do
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.datetime "start_time"
@@ -33,6 +33,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_142223) do
     t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
+  create_table "slots", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "votes"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_slots_on_event_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -49,4 +58,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_142223) do
 
   add_foreign_key "invitations", "events"
   add_foreign_key "invitations", "users"
+  add_foreign_key "slots", "events"
 end

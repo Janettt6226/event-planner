@@ -5,7 +5,10 @@ class EventsController < ApplicationController
     @events_grouped_by_date = @events.group_by { |event| event.start_time.to_date }
   end
 
-  def show; end
+  def show
+    @slot = @event.slots.build
+    @slots = @event.slots
+  end
 
   def new
     @event = Event.new

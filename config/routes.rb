@@ -8,5 +8,7 @@ Rails.application.routes.draw do
 
   resources :events, only: %i[show] do
     resources :invitations
+    resources :slots, only: %i[show new create edit update destroy]
   end
+
 end

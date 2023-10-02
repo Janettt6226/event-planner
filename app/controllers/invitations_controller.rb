@@ -5,8 +5,8 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    user_ids = Array(params[:invitation][:usernames])
-    user_ids.each do |username|
+    usernames = Array(params[:invitation][:usernames])
+    usernames.each do |username|
       invitation = @event.invitations.build(username: username)
       invitation.save
     end
