@@ -5,5 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :invitations, dependent: :destroy
   has_many :events, through: :invitations
+  has_many :slots
   validates :username, uniqueness: true
 end

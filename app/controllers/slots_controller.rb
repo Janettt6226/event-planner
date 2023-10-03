@@ -25,6 +25,7 @@ class SlotsController < ApplicationController
     @slot.update(slot_params)
   end
 
+
   def destroy
     if @slot.destroy
       redirect_to event_path(@event)

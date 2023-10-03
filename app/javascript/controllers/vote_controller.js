@@ -1,15 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="vote"
-export default class extends Controller {
+export default class Vote extends Controller {
   static targets = ["vote"];
+  static values = { plusone: Number };
   connect() {
-    console.log("coucou");
   }
 
   upvote(event) {
-    event.prevent.default();
-    console.log(this.voteTarget);
-
+    event.preventDefault();
+    this.plusoneValue += 1;
+    this.voteTarget.innerText = this.plusoneValue;
   }
 }
