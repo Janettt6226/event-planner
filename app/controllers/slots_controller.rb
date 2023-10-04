@@ -21,10 +21,17 @@ class SlotsController < ApplicationController
   def edit; end
 
   def update
+    @event = @slot.event
+    @slot.user_id = current_user.id
+    @slot.votes = 0 if @slot.votes.nil?
     @slot.votes += 1
-    @slot.update(slot_params)
+    @slot[:available?] = true
+    if @slot.update(slot_params)
+      redirect_to event_path(@event), notice: "Got it!"
+    else
+      render :new, unprocessable_entity
+    end
   end
-
 
   def destroy
     if @slot.destroy
@@ -37,7 +44,7 @@ class SlotsController < ApplicationController
   private
 
   def slot_params
-    params.require(:slot).permit(:date, :votes, :event_id)
+    params.require(:slot).permit(:date, :votes, :event_id, :user_id, :available?)
   end
 
   def set_slot

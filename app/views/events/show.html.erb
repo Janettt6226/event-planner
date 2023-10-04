@@ -12,14 +12,15 @@
 <% end %>
 
 <%= link_to "Update event", edit_event_path(@event) %>
-<%= render "slots/new", slot: @slot %>
+<div class="new-slot">
+  <%= render "slots/new", slot: @slot %>
+</div>
   <% @slots.each do |slot| %>
     <div data-controller="vote">
-      <p><%= slot.date %></p>
-      <p>Current votes:</p>
+      <p>Date option: <%= slot.date %></p>
+      <%= render "slots/edit", slot: slot %>
       <p data-vote-target="vote" data-vote-value="plusone"><%= slot.votes %></p>
       <button data-action="click->vote#upvote">Yes, count me in!</button>
-      <button>Sorry, not there</button>
     </div>
   <% end %>
 <%= link_to "Cancel event", event_path(@event), data: { "turbo-method": :delete,  turbo_confirm: "Are you sure?" }  %>

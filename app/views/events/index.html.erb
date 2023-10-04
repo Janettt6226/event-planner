@@ -18,6 +18,11 @@
       <p>Date: <%= event.start_time %></p>
       <p>Place: <%= event.location %></p>
       <p>Description: <%= event.description %></p>
+      <p>Participants: <% @participants.each do |participant| %></p>
+        <ul>
+          <li><%= participant %></li>
+        </ul>
+      <% end %>
     <% end %>
   <% end %>
 </div>

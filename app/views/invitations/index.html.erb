@@ -1,0 +1,44 @@
+<h1>Awaiting events</h1>
+
+<%# Ici on veut:  %>
+<%# - Les events auxquels je suis invité %>
+<%# - Les events dont il faut définir la date %>
+
+<h2>Mes invitations</h2>
+<%# CODE DUPPLIQUE events/index %>
+<div class="container">
+  <% @invitations_grouped_by_date.keys.sort.each do |start_time| %>
+    <% invitations = @invitations_grouped_by_date[start_time] %>
+    <h2 class="section-title">
+    <% if start_time.to_date == Date.today %>
+        Today
+      <% elsif start_time.to_date == Date.tomorrow %>
+        Tomorrow
+      <% else %>
+        <%= start_time.to_date.strftime('%A, %B %d, %Y') %>
+      <% end %>
+    </h2>
+    <% invitations.each do |invitation| %>
+      <h3><%= link_to invitation.event.title, events_path(@event)%></h3>
+      <p>Date: <%= invitation.event.start_time %></p>
+      <p>Place: <%= invitation.event.location %></p>
+      <p>Description: <%= invitation.event.description %></p>
+      <p>Participants: <% @participants.each do |participant| %>
+        <ul>
+          <li><%= participant %>
+        </ul>
+      <% end %>
+      <%= %>
+    <% end %>
+  <% end %>
+</div>
+<%# FIN %>
+<%# TODO %>
+  <%# [❌] Bouton "Participer" --> update invitation avec participate? = true%>
+  <%# [❌] Bouton "Décliner" --> griser l'évenement %>
+  <%# [✅] Afficher les participants %>
+<%# TODO %>
+
+<%= console %>
+
+<h2>Répondre aux sondages</h2>

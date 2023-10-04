@@ -3,11 +3,18 @@ class EventsController < ApplicationController
   def index
     @events = Event.all
     @events_grouped_by_date = @events.group_by { |event| event.start_time.to_date }
+    @participants = []
+    @events.each do |event|
+      event.invitations.each do |invitation|
+        @participants << invitation.username if invitation.participate?
+      end
+    end
   end
 
   def show
-    @slot = @event.slots.build
     @slots = @event.slots
+    @slot = @slots.build
+    # @participants = @event.invitations.select { |slot| slot.available? == true }
   end
 
   def new
