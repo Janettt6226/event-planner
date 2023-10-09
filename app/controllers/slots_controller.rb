@@ -1,6 +1,6 @@
 class SlotsController < ApplicationController
-  before_action :set_slot, only: %i[show destroy edit update]
   before_action :set_event, only: %i[edit update create]
+  before_action :set_slot, only: %i[show destroy edit update]
 
   def show; end
 
@@ -48,7 +48,9 @@ class SlotsController < ApplicationController
   end
 
   def set_slot
-    @slot = Slot.find(params[:id])
+    # @slot = Slot.find(params[:id])
+    @slot = @event.slots.find(params[:id])
+
   end
 
   def set_event

@@ -1,9 +1,11 @@
 class InvitationsController < ApplicationController
-  before_action :set_event, only: %i[edit update]
+  before_action :set_event, only: %i[new create edit update]
+  before_action :set_invitation, only: %i[edit update]
 
   def index
     @invitations = Invitation.all
-    @invitations_grouped_by_date = @invitations.group_by { |invitation| invitation.event.start_time.to_date }
+    @user_invitations = @invitations.select { |invitation| invitation.username = current_user.username }
+    @invitations_grouped_by_date = @user_invitations.group_by { |invitation| invitation.event.start_time.to_date }
     # CODE DUPPLIQUE events#index
     @participants = []
     @invitations.each do |invitation|
@@ -34,7 +36,7 @@ class InvitationsController < ApplicationController
   private
 
   def invitation_params
-    params.require(:invitation).permit(usernames: [],  :event_id, :participate?)
+    params.require(:invitation).permit(:event_id, :participate?, usernames: [])
   end
 
   def set_event
@@ -42,6 +44,7 @@ class InvitationsController < ApplicationController
   end
 
   def set_invitation
-    @invitation = Invitation.find(params[:id])
+    @invitation = @event.invitations.find(params[:id])
+    # @invitation = Invitation.find(params[:id])
   end
 end

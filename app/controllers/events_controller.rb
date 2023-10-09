@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
+
   def index
     @events = Event.all
     @events_grouped_by_date = @events.group_by { |event| event.start_time.to_date }
@@ -13,6 +14,7 @@ class EventsController < ApplicationController
 
   def show
     @slots = @event.slots
+    # @user = @slot.user&.
     @slot = @slots.build
     # @participants = @event.invitations.select { |slot| slot.available? == true }
   end
@@ -58,4 +60,5 @@ class EventsController < ApplicationController
   def set_event
     @event = Event.find(params[:id])
   end
+
 end

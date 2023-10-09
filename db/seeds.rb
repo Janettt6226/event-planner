@@ -9,6 +9,7 @@
 Event.destroy_all
 User.destroy_all
 
+events = []
 10.times do
   new_event = Event.create(
     title: Faker::Hobby.activity,
@@ -17,14 +18,18 @@ User.destroy_all
     description: Faker::Lorem.sentence
   )
   puts new_event.title
+  events << new_event.id
 end
 
+
+users = []
 paul = User.create!(
   username: 'Paul',
   password: "password",
   email: "paul@gmail.com"
 )
 puts paul.username
+users << paul.username
 
 doud = User.create!(
   username: 'Doud',
@@ -32,6 +37,8 @@ doud = User.create!(
   email: "doud@gmail.com"
 )
 puts doud.username
+users << doud.username
+
 
 raph = User.create!(
   username: 'Raph',
@@ -39,6 +46,8 @@ raph = User.create!(
   email: "raph@gmail.com"
 )
 puts raph.username
+users << raph.username
+
 
 paulaire = User.create!(
   username: 'Paulaire',
@@ -46,6 +55,7 @@ paulaire = User.create!(
   email: "paulaire@gmail.com"
 )
 puts paulaire.username
+users << paulaire.username
 
 adri = User.create!(
   username: 'Adri',
@@ -53,6 +63,7 @@ adri = User.create!(
   email: "adri@gmail.com"
 )
 puts adri.username
+users << adri.username
 
 bev = User.create!(
   username: 'Bev',
@@ -60,6 +71,8 @@ bev = User.create!(
   email: "bev@gmail.com"
 )
 puts bev.username
+users << bev.username
+
 
 lolo = User.create!(
   username: 'Lolo',
@@ -67,6 +80,8 @@ lolo = User.create!(
   email: "lolo@gmail.com"
 )
 puts lolo.username
+users << lolo.username
+
 
 nono = User.create!(
   username: 'Nono',
@@ -74,3 +89,27 @@ nono = User.create!(
   email: "nono@gmail.com"
 )
 puts nono.username
+users << nono.username
+
+puts "============================"
+puts "creating invitations"
+puts "============================"
+
+5.times do
+  Invitation.create!(
+    event_id: events.sample,
+    username: users.sample,
+    participate?: true
+  )
+end
+
+5.times do
+  Invitation.create!(
+    event_id: events.sample,
+    username: users.sample,
+  )
+end
+
+puts "============================"
+puts "Invitations created"
+puts "============================"

@@ -7,10 +7,8 @@ Rails.application.routes.draw do
   resources :events, only: %i[index new create edit update destroy]
   resources :invitations, only: %i[index]
 
-
   resources :events, only: %i[show] do
     resources :invitations, only: %i[new create edit update destroy]
     resources :slots, only: %i[show new create edit upvote update destroy]
   end
-
 end

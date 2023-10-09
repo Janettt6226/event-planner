@@ -1,9 +1,30 @@
-<h1>Update event</h1>
 
-<%= simple_form_for @event do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.input :start_time %>
-  <%= f.input :location %>
-  <%= f.submit "Update event" %>
-<% end %>
+<div class="container">
+  <h1>Update event</h1>
+  <%= simple_form_for @event do |f| %>
+  <div class="row mb-5">
+    <div class="col">
+      <%= f.input :title %>
+    </div>
+    <div class="col">
+      <%= f.input :location %>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col">
+        <%= f.input :start_time, as: :string,
+                    wrapper_html: { class: "mb-4" },
+                    label_html: { class: "form-label text-secondary fw-bold" },
+                    input_html: { data: { controller: "flatpickr" } } %>
+      </div>
+      <div class="col">
+        <%= f.input :end_time, as: :string,
+                    wrapper_html: { class: "mb-4" },
+                    label_html: { class: "form-label text-secondary fw-bold" },
+                    input_html: { data: { controller: "flatpickr" } } %>
+      </div>
+    </div>
+    <%= f.input :description %>
+    <%= f.submit "Update event" %>
+  <% end %>
+</div>

@@ -1,27 +1,31 @@
-<h1><%= @event.title %></h1>
-<%= link_to "Back to all events", events_path %>
+<div class="container">
+  <h1><%= @event.title %></h1>
+  <%= link_to "Back to all events", events_path %>
 
-<p>Date: <%= @event.start_time %></p>
-<p>Place: <%= @event.location %></p>
-<p>Description: <%= @event.description %></p>
-<h5>People invited:</h5>
-<% @event.invitations.each do |invitation| %>
-  <ul>
-    <li><%= invitation.user.username %></li>
-  </ul>
-<% end %>
-
-<%= link_to "Update event", edit_event_path(@event) %>
-<div class="new-slot">
-  <%= render "slots/new", slot: @slot %>
-</div>
-  <% @slots.each do |slot| %>
-    <div data-controller="vote">
-      <p>Date option: <%= slot.date %></p>
-      <%= render "slots/edit", slot: slot %>
-      <p data-vote-target="vote" data-vote-value="plusone"><%= slot.votes %></p>
-      <button data-action="click->vote#upvote">Yes, count me in!</button>
-    </div>
+  <p>Date: <%= @event.start_time %></p>
+  <p>Place: <%= @event.location %></p>
+  <p>Description: <%= @event.description %></p>
+  <h5>People invited:</h5>
+  <% @event.invitations.each do |invitation| %>
+    <ul>
+      <li><%= invitation.user.username %></li>
+    </ul>
   <% end %>
-<%= link_to "Cancel event", event_path(@event), data: { "turbo-method": :delete,  turbo_confirm: "Are you sure?" }  %>
+
+  <%= link_to "Update event", edit_event_path(@event) %>
+  <div class="new-slot">
+    <%= render "slots/new", slot: @slot %>
+  </div>
+    <% @slots.each do |slot| %>
+      <div class="row">
+        <div class="col">
+          <p>Option: <%= slot.date %></p>
+        </div>
+        <div class="col">
+          <%= render "slots/edit", slot: slot %>
+        </div>
+      </div>
+    <% end %>
+  <%= link_to "Cancel event", event_path(@event), data: { "turbo-method": :delete,  turbo_confirm: "Are you sure?" }  %>
+</div>
 <%= console %>

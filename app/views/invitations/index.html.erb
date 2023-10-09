@@ -1,5 +1,3 @@
-<h1>Awaiting events</h1>
-
 <%# Ici on veut:  %>
 <%# - Les events auxquels je suis invité %>
 <%# - Les events dont il faut définir la date %>
@@ -11,15 +9,20 @@
     <% invitations = @invitations_grouped_by_date[start_time] %>
     <h2 class="section-title">
     <% if start_time.to_date == Date.today %>
-        Today
+        Aujourd'hui
       <% elsif start_time.to_date == Date.tomorrow %>
-        Tomorrow
+        Demain
       <% else %>
         <%= start_time.to_date.strftime('%A, %B %d, %Y') %>
       <% end %>
     </h2>
     <% invitations.each do |invitation| %>
       <h3><%= link_to invitation.event.title, events_path(@event)%></h3>
+      <%= simple_form_for [invitation.event, invitation], local: true do |f| %>
+        <%= f.hidden_field :participate? %>
+        <%= f.submit "Accepter" %>
+      <% end %>
+      <button>Décliner</button>
       <p>Date: <%= invitation.event.start_time %></p>
       <p>Place: <%= invitation.event.location %></p>
       <p>Description: <%= invitation.event.description %></p>
@@ -28,14 +31,14 @@
           <li><%= participant %>
         </ul>
       <% end %>
-      <%= %>
     <% end %>
   <% end %>
 </div>
 <%# FIN %>
+
 <%# TODO %>
-  <%# [❌] Bouton "Participer" --> update invitation avec participate? = true%>
-  <%# [❌] Bouton "Décliner" --> griser l'évenement %>
+  <%# [❌] Bouton "Participer" --> update invitation avec participate? = true %>
+  <%# [❌] Bouton "Décliner" --> griser l'évenement avec stimulus %>
   <%# [✅] Afficher les participants %>
 <%# TODO %>
 

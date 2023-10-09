@@ -1,4 +1,4 @@
 <%= simple_form_for [@event, slot] do |f| %>
-  <%= f.input :available? %>
+  <%= f.hidden_field :available? %>
   <%= f.submit "Yes, count me in!" %>
 <% end %>
