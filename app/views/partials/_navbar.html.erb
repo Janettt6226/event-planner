@@ -1,9 +1,9 @@
 <ul class="list-inline tabs-underlined">
   <li>
-    <a href="/events" class="tab-underlined active">Upcoming events</a>
+    <%= link_to "Upcoming events", events_path, class: "tab-underlined active" %>
   </li>
   <li>
-    <a href="/invitations" class="tab-underlined">My invitations</a>
+    <%= link_to "My invitations", user_invitations_path(current_user), class: "tab-underlined" %>
   </li>
   <li>
     <a href="#" class="tab-underlined">My events</a>

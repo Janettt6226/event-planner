@@ -1,7 +1,11 @@
-<h1>Welcome <%= current_user.username unless current_user.nil? %>!</h1>
-<h2>What would you like to do today?</h2>
-<ul>
-  <li><%= link_to "Browse events", events_path %></li>
-  <li><%= link_to "Launch/suggest a new event", new_event_path %></li>
-  <li>Manage my events</li>
-</ul>
+<div class="container" id="welcome">
+  <div class="container-centered">
+    <h2>👋</h2>
+    <h1>Welcome back <%= current_user.username unless current_user.nil? %>!</h1>
+    <ul class="button-welcome-container">
+      <li class="button-welcome"><%= link_to "Browse events", events_path %></li>
+      <li class="button-welcome"><%= link_to "Launch events", new_event_path %></li>
+      <li class="button-welcome">Manage events</li>
+    </ul>
+  </div>
+</div>

@@ -13,6 +13,8 @@
  *= require_tree .
  *= require_self
  */
-
+ @import "config/_colors";
  @import "bootstrap";
- @import "components/navbar"
+ @import "components/navbar";
+ @import "pages/welcome";
+ @import "components/body";

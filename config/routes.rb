@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root to: 'pages#welcome'
   resources :events, only: %i[index new create edit update destroy]
-  resources :invitations, only: %i[index]
+  resources :users, only: %i[show] do
+    resources :invitations, only: %i[index]
+  end
 
   resources :events, only: %i[show] do
     resources :invitations, only: %i[new create edit update destroy]
