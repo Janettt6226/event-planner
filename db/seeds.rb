@@ -99,7 +99,7 @@ puts "============================"
   Invitation.create!(
     event_id: events.sample,
     username: users.sample,
-    participate?: true
+    participate: true
   )
 end
 

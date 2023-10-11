@@ -26,10 +26,16 @@
         // color: var(--light-grey);
         padding: 1em 2em;
         margin-bottom: 1em;
+        color: var(--dark-green);
+
 
         a {
           text-decoration: none;
           color: var(--dark-green);
+
+          :hover {
+            border: 2px solid var(--red);
+          }
         }
       }
     }

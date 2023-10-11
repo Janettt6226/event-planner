@@ -1,0 +1,36 @@
+.event-container {
+  padding: 8px;
+  border: solid 1px var(--dark-green);
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px 1px;
+  margin-bottom: 1em;
+
+  a {
+    color: var(--dark-green);
+    font-weight: 700px;
+    text-decoration: none;
+  }
+
+  .participants-container {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-left: 0;
+    padding-left: 0;
+  }
+}
+
+.box-single-participant {
+  background-color: var(--dark-green);
+  border-radius: 16px;
+  color: white;
+  padding: 4px 12px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}

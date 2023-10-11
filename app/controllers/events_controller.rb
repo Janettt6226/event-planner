@@ -4,10 +4,10 @@ class EventsController < ApplicationController
   def index
     @events = Event.all
     @events_grouped_by_date = @events.group_by { |event| event.start_time.to_date }
-    @participants = []
     @events.each do |event|
+      @participants = []
       event.invitations.each do |invitation|
-        @participants << invitation.username if invitation.participate?
+        @participants << invitation.username if invitation.participate? == true
       end
     end
   end
@@ -29,7 +29,7 @@ class EventsController < ApplicationController
     if @event.save!
       redirect_to new_event_invitation_path(@event)
     else
-      render :new, unprocessable_entity
+      render :new, :unprocessable_entity
     end
   end
 
@@ -39,7 +39,7 @@ class EventsController < ApplicationController
     if @event.update(event_params)
       redirect_to event_path(@event)
     else
-      render :edit, unprocessable_entity
+      render :edit, :unprocessable_entity
     end
   end
 
@@ -47,7 +47,7 @@ class EventsController < ApplicationController
     if @event.destroy
       redirect_to events_path
     else
-      render :see_other, unprocessable_entity, notice: "Event can't be cancelled"
+      render :see_other, :unprocessable_entity, notice: "Event can't be cancelled"
     end
   end
 

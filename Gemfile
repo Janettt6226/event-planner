@@ -9,6 +9,9 @@ gem "devise"
 gem "simple_form"
 gem "faker"
 gem "bootstrap", "~> 5.2"
+gem "font-awesome-sass", "~> 6.4.2"
+gem "pry"
+
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

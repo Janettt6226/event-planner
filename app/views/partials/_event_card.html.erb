@@ -1,0 +1,13 @@
+<h3><%= link_to event.title.capitalize, event_path(event) %></h3>
+<p><i class="fa-regular fa-calendar-days" style="color: #1d2815;"></i>Le : <%= event.start_time %></p>
+<% if event.location.nil? %>
+  <p>A déterminer</p>
+<% else %>
+  <p>A : <%= event.location %></p>
+<% end %>
+<p>Participants :</p>
+  <ul class="participants-container">
+    <% @participants.each do |participant| %>
+      <li class="box-single-participant"><%= participant %></li>
+    <% end %>
+  </ul>

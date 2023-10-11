@@ -17,20 +17,16 @@
       <% end %>
     </h2>
     <% invitations.each do |invitation| %>
-      <h3><%= link_to invitation.event.title, events_path(@event)%></h3>
-      <%= simple_form_for [invitation.event, invitation], local: true do |f| %>
-        <%= f.hidden_field :participate? %>
-        <%= f.submit "Accepter" %>
-      <% end %>
-      <button>Décliner</button>
-      <p>Date: <%= invitation.event.start_time %></p>
-      <p>Place: <%= invitation.event.location %></p>
-      <p>Description: <%= invitation.event.description %></p>
-      <p>Participants: <% @participants.each do |participant| %>
-        <ul>
-          <li><%= participant %>
-        </ul>
-      <% end %>
+      <div class="event-container">
+        <%= render "partials/event_card", event: invitation.event %>
+        <div class="btn-container">
+          <button>Décliner</button>
+          <%= simple_form_for [invitation.event, invitation], local: true do |f| %>
+            <%= f.hidden_field :participate %>
+            <%= f.submit "Accepter" %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   <% end %>
 </div>
