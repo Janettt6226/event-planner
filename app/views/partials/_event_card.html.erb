@@ -1,5 +1,5 @@
 <h3><%= link_to event.title.capitalize, event_path(event) %></h3>
-<p><i class="fa-regular fa-calendar-days" style="color: #1d2815;"></i>Le : <%= event.start_time %></p>
+<p><i class="fa-regular fa-calendar-days" style="color: #1d2815;"></i>Le : <%= event.start_time.to_date.strftime('%A, %B %d, %Y') %></p>
 <% if event.location.nil? %>
   <p>A déterminer</p>
 <% else %>

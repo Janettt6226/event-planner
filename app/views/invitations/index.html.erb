@@ -20,11 +20,11 @@
       <div class="event-container">
         <%= render "partials/event_card", event: invitation.event %>
         <div class="btn-container">
-          <button>Décliner</button>
           <%= simple_form_for [invitation.event, invitation], local: true do |f| %>
-            <%= f.hidden_field :participate %>
+            <%= f.hidden_field :participate, value: true %>
             <%= f.submit "Accepter" %>
           <% end %>
+          <%= link_to "Décliner", event_invitation_path(invitation.event, invitation), data: { "turbo-method": :delete, confirm: "Are you sure you want to decline this invitation?" }, class: "btn btn-danger" %>
         </div>
       </div>
     <% end %>

@@ -3,7 +3,15 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
-    @events_grouped_by_date = @events.group_by { |event| event.start_time.to_date }
+    # ⬇ on collecte les invitations relatives à chaque event
+    @invitations = @events.map(&:invitations).flatten
+    # ⬇ on sélectionne celles auxquelles le user participe
+    @user_accepted_invitations = @invitations.select { |invitation| invitation.user == current_user && invitation.participate? }
+    # ⬇ on collecte les events relatifs aux invitations acceptées
+    @user_events = @user_accepted_invitations.flatten.map(&:event)
+    @events_grouped_by_date = @user_events.group_by { |event| event.start_time.to_date }
+
+    # PARTICIPANTS
     @events.each do |event|
       @participants = []
       event.invitations.each do |invitation|

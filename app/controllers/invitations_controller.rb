@@ -1,10 +1,10 @@
 class InvitationsController < ApplicationController
-  before_action :set_invitation, only: %i[edit update]
-  before_action :set_event, only: %i[new create edit update]
+  before_action :set_invitation, only: %i[edit update destroy]
+  before_action :set_event, only: %i[new create edit update destroy]
 
   def index
     @invitations = Invitation.all
-    @user_invitations = @invitations.select { |invitation| invitation.user == current_user && invitation.participate? == false }
+    @user_invitations = @invitations.select { |invitation| invitation.user == current_user && !invitation.participate? }
     @invitations_grouped_by_date = @user_invitations.group_by { |invitation| invitation.event.start_time.to_date }
     # CODE DUPPLIQUE events#index
     @invitations.each do |invitation|
@@ -35,12 +35,20 @@ class InvitationsController < ApplicationController
   def edit; end
 
   def update
-    @invitation[:participate] === true
+    @invitation.participate = true
     if @invitation.update!(invitation_params)
       puts "Invitation Updated Successfully: #{@invitation.inspect}"
     else
       # render :see_other, :unprocessable_entity
       puts "Invitation Update Failed: #{@invitation.errors.full_messages.join(', ')}"
+    end
+  end
+
+  def destroy
+    if @invitation.destroy!
+      redirect_to user_invitations_path(current_user)
+    else
+      render :see_other, :unprocessable_entity
     end
   end
 
