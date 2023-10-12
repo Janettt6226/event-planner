@@ -11,7 +11,7 @@
       <li><%= invitation.user.username %></li>
     </ul>
   <% end %>
-
+  <%= link_to "Invite more friends", new_event_invitation_path(@event) %>
   <%= link_to "Update event", edit_event_path(@event) %>
   <div class="new-slot">
     <%= render "slots/new", slot: @slot %>

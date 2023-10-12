@@ -39,6 +39,12 @@ class EventsController < ApplicationController
     else
       render :new, :unprocessable_entity
     end
+    Invitation.create(
+      user_id: current_user.id,
+      username: current_user.username,
+      event_id: @event.id,
+      participate: true
+    )
   end
 
   def edit; end
@@ -62,7 +68,7 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:start_time, :title, :description, :location)
+    params.require(:event).permit(:start_time, :end_time, :title, :description, :location)
   end
 
   def set_event

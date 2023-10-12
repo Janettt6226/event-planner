@@ -14,21 +14,23 @@ class InvitationsController < ApplicationController
   end
 
   def new
+    usernames = User.all.pluck(:username)
+    @guests = usernames.reject { |user| user == current_user.username }
+    invited_usernames = @event.invitations.pluck(:username)
+    @uninvited_guests = @guests - invited_usernames
+    # @uninvited_usernames = @uninvited_guests.zip(User.all.pluck(:username)).to_h
+    @uninvited_usernames = @uninvited_guests
     @invitation = @event.invitations.build
   end
 
   def create
-    usernames = Array(params[:invitation][:usernames])
+    puts "Usernames submitted: #{params[:invitation][:usernames]}"
+    usernames = Array(params[:invitation][:usernames]).reject!(&:empty?)
+    puts "Usernames submitted: #{usernames.inspect}"
     usernames.each do |username|
       invitation = @event.invitations.build(username: username)
-      invitation.save
+      invitation.save!
     end
-    Invitation.create(
-      user_id: current_user.id,
-      username: current_user.username,
-      event_id: @event.id,
-      participate: true
-    )
     redirect_to event_path(@event), notice: 'Friends successfully invited'
   end
 
