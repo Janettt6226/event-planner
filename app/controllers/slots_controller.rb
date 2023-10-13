@@ -5,13 +5,14 @@ class SlotsController < ApplicationController
   def show; end
 
   def new
-    @slot = Slot.new
+    @slot = @event.slots.build
   end
 
   def create
     @slot = Slot.new(slot_params)
     @slot.event_id = @event.id
-    if @slot.save
+    @slot.user_id = current_user.id
+    if @slot.save!
       redirect_to event_path(@event)
     else
       render :new, unprocessable_entity
@@ -23,13 +24,11 @@ class SlotsController < ApplicationController
   def update
     @event = @slot.event
     @slot.user_id = current_user.id
-    @slot.votes = 0 if @slot.votes.nil?
-    @slot.votes += 1
-    @slot[:available?] = true
-    if @slot.update(slot_params)
+    @slot.available = true
+    if @slot.update!(slot_params)
       redirect_to event_path(@event), notice: "Got it!"
     else
-      render :new, unprocessable_entity
+      render :new, :unprocessable_entity
     end
   end
 
@@ -44,7 +43,7 @@ class SlotsController < ApplicationController
   private
 
   def slot_params
-    params.require(:slot).permit(:date, :votes, :event_id, :user_id, :available?)
+    params.require(:slot).permit(:date, :votes, :event_id, :user_id, :available)
   end
 
   def set_slot

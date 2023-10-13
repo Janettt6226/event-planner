@@ -11,6 +11,7 @@ gem "faker"
 gem "bootstrap", "~> 5.2"
 gem "font-awesome-sass", "~> 6.4.2"
 gem "pry"
+gem 'simple_calendar', "~> 2.4"
 
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]

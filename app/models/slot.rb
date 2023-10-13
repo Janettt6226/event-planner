@@ -1,4 +1,4 @@
 class Slot < ApplicationRecord
   belongs_to :event
-  has_many :users
+  belongs_to :user
 end

@@ -1,0 +1,48 @@
+.simple-calendar {
+  table {
+    min-height: 80vh;
+  }
+  .today {
+    background-color: #FAF3DD;
+  }
+}
+
+.event {
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: var(--dark-green);
+  transition: background 0.3s ease;
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+.event:hover {
+  background: var(--light-blue);
+  color: white;
+  a {
+    color: white;
+  }
+}
+
+.invitation {
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: var(--blue-grey);
+  transition: background 0.3s ease;
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+.invitation:hover {
+  background: var(--light-blue);
+  color: white;
+  a {
+    color: white;
+  }
+}

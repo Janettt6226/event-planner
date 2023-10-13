@@ -16,8 +16,10 @@
  @import "config/_colors";
  @import "bootstrap";
  @import "font-awesome";
+ @import "simple_calendar";
 
  @import "components/navbar";
  @import "pages/welcome";
  @import "components/body";
  @import "components/_event_container";
+@import "components/_calendar"

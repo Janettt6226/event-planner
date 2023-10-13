@@ -22,8 +22,8 @@ class EventsController < ApplicationController
 
   def show
     @slots = @event.slots
-    # @user = @slot.user&.
     @slot = @slots.build
+    # @user = @slot.user&.
     # @participants = @event.invitations.select { |slot| slot.available? == true }
   end
 
@@ -63,6 +63,24 @@ class EventsController < ApplicationController
     else
       render :see_other, :unprocessable_entity, notice: "Event can't be cancelled"
     end
+  end
+
+  def calendar
+    @events = Event.all
+    @events_to_invitations = @events.map(&:invitations).flatten
+    # ⬇ on sélectionne celles auxquelles le user participe
+    @user_accepted_invitations = @events_to_invitations.select { |invitation| invitation.user == current_user && invitation.participate? }
+    # ⬇ on collecte les events relatifs aux invitations acceptées
+    @user_events = @user_accepted_invitations.flatten.map(&:event)
+
+    # @invitations = Invitation.all
+    # @user_invitations = @invitations.select { |invitation| invitation.user == current_user && !invitation.participate? }
+    # @user_pending_events = @user_invitations.flatten.map(&:event)
+
+    # @combined_items = @user_events + @user_pending_events
+
+    start_date = params.fetch(:start_date, Date.today).to_date
+    @events = Event.where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
   end
 
   private

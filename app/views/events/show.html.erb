@@ -16,13 +16,19 @@
   <div class="new-slot">
     <%= render "slots/new", slot: @slot %>
   </div>
-    <% @slots.each do |slot| %>
+    <% @slots.each_with_index do |slot, i| %>
       <div class="row">
         <div class="col">
-          <p>Option: <%= slot.date %></p>
+          <p>Option <%= i + 1 %>: <%= slot.date.to_date.strftime('%A, %B %d, %Y') unless slot.date.nil? %></p>
         </div>
         <div class="col">
           <%= render "slots/edit", slot: slot %>
+        </div>
+        <div class="col">
+          <p>People available:</p>
+          <ul>
+          <li><%= slot.user.username unless slot.user.nil? || slot.available? == false %></li>
+          </ul>
         </div>
       </div>
     <% end %>

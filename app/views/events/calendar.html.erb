@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Mon calendrier</h1>
+  <%= console %>
+  <%= month_calendar(events: @user_events) do |date, events| %>
+    <%= date %>
+
+    <% events.each do |event| %>
+      <div class="event">
+        <%= link_to event.title, event %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
