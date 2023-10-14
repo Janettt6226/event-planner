@@ -13,21 +13,21 @@
   <% end %>
   <%= link_to "Invite more friends", new_event_invitation_path(@event) %>
   <%= link_to "Update event", edit_event_path(@event) %>
-  <div class="new-slot">
-    <%= render "slots/new", slot: @slot %>
+  <div class="new-suggestion">
+    <%= render "suggestions/new", suggestion: @suggestion %>
   </div>
-    <% @slots.each_with_index do |slot, i| %>
+    <% @suggestions.each_with_index do |suggestion, i| %>
       <div class="row">
         <div class="col">
-          <p>Option <%= i + 1 %>: <%= slot.date.to_date.strftime('%A, %B %d, %Y') unless slot.date.nil? %></p>
+          <p>Option <%= i + 1 %>: <%= suggestion.date.to_date.strftime('%A, %B %d, %Y') unless suggestion.date.nil? %></p>
         </div>
         <div class="col">
-          <%= render "slots/edit", slot: slot %>
+          <%= render "suggestions/edit", suggestion: suggestion %>
         </div>
         <div class="col">
           <p>People available:</p>
           <ul>
-          <li><%= slot.user.username unless slot.user.nil? || slot.available? == false %></li>
+          <li><%= suggestion.user.username unless suggestion.user.nil? || suggestion.available? == false %></li>
           </ul>
         </div>
       </div>

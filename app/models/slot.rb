@@ -1,4 +1,4 @@
-class Slot < ApplicationRecord
+class suggestion < ApplicationRecord
   belongs_to :event
   belongs_to :user
 end

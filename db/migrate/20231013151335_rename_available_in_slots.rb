@@ -1,5 +1,5 @@
-class RenameAvailableInSlots < ActiveRecord::Migration[7.0]
+class RenameAvailableInSuggestions < ActiveRecord::Migration[7.0]
   def change
-    rename_column :slots, :available?, :available
+    rename_column :suggestions, :available?, :available
   end
 end

@@ -21,10 +21,10 @@ class EventsController < ApplicationController
   end
 
   def show
-    @slots = @event.slots
-    @slot = @slots.build
-    # @user = @slot.user&.
-    # @participants = @event.invitations.select { |slot| slot.available? == true }
+    @suggestions = @event.suggestions
+    @suggestion = @suggestions.build
+    # @user = @suggestion.user&.
+    # @participants = @event.invitations.select { |suggestion| suggestion.available? == true }
   end
 
   def new

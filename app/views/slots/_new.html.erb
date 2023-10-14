@@ -1,5 +1,5 @@
-<h1>Suggest a time slot</h1>
-<%= simple_form_for [@event, @slot] do |f| %>
+<h1>Suggest a time suggestion</h1>
+<%= simple_form_for [@event, @suggestion] do |f| %>
   <div class="row">
     <div class="col">
       <%= f.input :date, as: :string,
@@ -8,7 +8,7 @@
                   input_html: { data: { controller: "flatpickr" } } %>
     </div>
     <div class="col">
-      <%= f.submit "Suggest this slot" %>
+      <%= f.submit "Suggest this suggestion" %>
     </div>
   </div>
 <% end %>

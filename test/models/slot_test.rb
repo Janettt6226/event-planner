@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SlotTest < ActiveSupport::TestCase
+class suggestionTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

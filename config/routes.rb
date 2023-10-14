@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :events, only: %i[show] do
     resources :invitations, only: %i[new create edit update destroy]
-    resources :slots, only: %i[show new create edit upvote update destroy]
+    resources :suggestions, only: %i[show new create edit upvote update destroy]
   end
 
   get "calendar", to: "events#calendar", as: :calendar
