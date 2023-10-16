@@ -22,7 +22,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @suggestions = @event.suggestions
+    @suggestions = @event.suggestions.ordered_by_answers
     @suggestion = Suggestion.new
     @answer = Answer.new(suggestion: @suggestion)
     # @answers = @suggestions.map(&:answers)

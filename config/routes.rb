@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :events, only: %i[show] do
     resources :invitations, only: %i[new create edit update destroy]
-    resources :suggestions, only: %i[new create edit update destroy]
+    resources :suggestions, only: %i[index new create edit update destroy]
   end
 
   resources :suggestions, only: %i[show] do
