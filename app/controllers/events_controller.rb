@@ -3,13 +3,14 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
+    @confirmed_events = @events.reject { |event| event.start_time.nil? }
     # ⬇ on collecte les invitations relatives à chaque event
-    @invitations = @events.map(&:invitations).flatten
+    @invitations = @confirmed_events.map(&:invitations).flatten
     # ⬇ on sélectionne celles auxquelles le user participe
     @user_accepted_invitations = @invitations.select { |invitation| invitation.user == current_user && invitation.participate? }
     # ⬇ on collecte les events relatifs aux invitations acceptées
     @user_events = @user_accepted_invitations.flatten.map(&:event)
-    @events_grouped_by_date = @user_events.group_by { |event| event.start_time.to_date }
+    @events_grouped_by_date = @user_events.group_by { |event| event.start_time.to_date unless event.start_time.nil? }
 
     # PARTICIPANTS
     @events.each do |event|
@@ -22,7 +23,9 @@ class EventsController < ApplicationController
 
   def show
     @suggestions = @event.suggestions
-    @suggestion = @suggestions.build
+    @suggestion = Suggestion.new
+    @answer = Answer.new(suggestion: @suggestion)
+    # @answers = @suggestions.map(&:answers)
     # @user = @suggestion.user&.
     # @participants = @event.invitations.select { |suggestion| suggestion.available? == true }
   end
@@ -39,11 +42,12 @@ class EventsController < ApplicationController
     else
       render :new, :unprocessable_entity
     end
-    Invitation.create(
-      user_id: current_user.id,
-      username: current_user.username,
-      event_id: @event.id,
-      participate: true
+    return if @event.start_time.nil? == false
+      Invitation.create(
+        user_id: current_user.id,
+        username: current_user.username,
+        event_id: @event.id,
+        participate: true
     )
   end
 

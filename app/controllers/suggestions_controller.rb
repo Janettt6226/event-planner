@@ -8,7 +8,7 @@ class SuggestionsController < ApplicationController
   end
 
   def create
-    @suggestion = suggestion.new(suggestion_params)
+    @suggestion = Suggestion.new(suggestion_params)
     @suggestion.event_id = @event.id
     @suggestion.user_id = current_user.id
     if @suggestion.save!
@@ -18,31 +18,31 @@ class SuggestionsController < ApplicationController
     end
   end
 
-  def edit; end
+  # def edit; end
 
-  def update
-    @event = @suggestion.event
-    @suggestion.user_id = current_user.id
-    @suggestion.available = true
-    if @suggestion.update!(suggestion_params)
-      redirect_to event_path(@event), notice: "Got it!"
-    else
-      render :new, :unprocessable_entity
-    end
-  end
+  # def update
+  #   @event = @suggestion.event
+  #   @suggestion.user_id = current_user.id
+  #   @suggestion.available = true
+  #   if @suggestion.update!(suggestion_params)
+  #     redirect_to event_path(@event), notice: "Got it!"
+  #   else
+  #     render :new, :unprocessable_entity
+  #   end
+  # end
 
   def destroy
     if @suggestion.destroy
       redirect_to event_path(@event)
     else
-      render :see_other, unprocessable_entity, notice: "suggestion can't be cancelled"
+      render :see_other, :unprocessable_entity, notice: "suggestion can't be cancelled"
     end
   end
 
   private
 
   def suggestion_params
-    params.require(:suggestion).permit(:date, :votes, :event_id, :user_id, :available)
+    params.require(:suggestion).permit(:date, :event_id, :user_id, :activity)
   end
 
   def set_suggestion

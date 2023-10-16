@@ -1,0 +1,21 @@
+<%= simple_form_for [@event, @suggestion] do |f| %>
+  <div class="row">
+    <% if @event.start_time.nil? %>
+      <h1>Suggest a slot</h1>
+      <div class="col">
+        <%= f.input :date, as: :string,
+                    wrapper_html: { class: "mb-4" },
+                    label_html: { class: "form-label text-secondary fw-bold" },
+                    input_html: { data: { controller: "flatpickr" } } %>
+      </div>
+    <% else %>
+      <h1>Suggest an activity</h1>
+      <div class="col">
+        <%= f.input :activity %>
+      </div>
+    <% end %>
+    <div class="col">
+      <%= f.submit "Suggest" %>
+    </div>
+  </div>
+<% end %>
