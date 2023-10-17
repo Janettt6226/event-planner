@@ -4,7 +4,7 @@ class InvitationsController < ApplicationController
 
   def index
     @invitations = Invitation.all
-    @user_invitations = @invitations.select { |invitation| invitation.user == current_user && !invitation.participate? }
+    @user_invitations = @invitations.select { |invitation| invitation.user == current_user && !invitation.participate? unless invitation.event.start_time.nil? }
     @invitations_grouped_by_date = @user_invitations.group_by { |invitation| invitation.event.start_time.to_date }
     # CODE DUPPLIQUE events#index
     @invitations.each do |invitation|

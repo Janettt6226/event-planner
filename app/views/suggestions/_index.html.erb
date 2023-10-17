@@ -17,7 +17,7 @@
           <%= f.submit "Yes, count me in!" %>
         <% end %>
         <% unless @answer.nil? %>
-          <%= link_to "Sorry, finally I can't 😿", suggestion_answer_path([suggestion, @answer]), data: { "turbo-method": :delete,  turbo_confirm: "Are you sure?" } %>
+          <%= link_to "Sorry, finally I can't 😿", suggestion_answer_path([@suggestion, @answer]), data: { "turbo-method": :delete,  turbo_confirm: "Are you sure?" } %>
         <% end %>
       </div>
       <div class="col">

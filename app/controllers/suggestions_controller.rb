@@ -4,8 +4,8 @@ class SuggestionsController < ApplicationController
   before_action :set_event, only: %i[index new edit update create]
 
   def index
-    @suggestions = @event.suggestions
-    @sorted_suggestions = @suggestions.each { |suggestion| suggestion.answers.count }.order.reverse
+    # @suggestions = @event.suggestions
+    # @sorted_suggestions = @suggestions.each { |suggestion| suggestion.answers.count }.order.reverse
   end
 
   def new
