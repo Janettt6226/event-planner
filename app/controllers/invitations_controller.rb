@@ -11,6 +11,11 @@ class InvitationsController < ApplicationController
       @participants = []
       @participants << invitation.username if invitation.participate?
     end
+
+    @answer = Answer.new
+    @undefined_events = @user_invitations.select { |invitation| invitation.event.suggestions.present? }.map(&:event)
+    @defined_events = @user_invitations.map(&:event) - @undefined_events
+
   end
 
   def new

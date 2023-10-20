@@ -7,17 +7,20 @@
     <div class="col">
     <% if @event.start_time.nil? %>
       <p>Option <%= i + 1 %>: <%= suggestion.date.to_date.strftime('%A, %B %d, %Y') unless suggestion.date.nil? %></p>
-      <% else %>
+    <% else %>
       <p>Option <%= i + 1 %>: <%= suggestion.activity %></p>
-      <% end %>
+    <% end %>
     </div>
       <div class="col">
-        <%= simple_form_for [suggestion, @answer] do |f| %>
-          <%= f.hidden_field :available, value: true %>
-          <%= f.submit "Yes, count me in!" %>
-        <% end %>
-        <% unless @answer.nil? %>
-          <%= link_to "Sorry, finally I can't 😿", suggestion_answer_path([@suggestion, @answer]), data: { "turbo-method": :delete,  turbo_confirm: "Are you sure?" } %>
+        <% if !suggestion.answers.find { |answer| answer.user == current_user } %>
+          <%= simple_form_for [suggestion, @answer] do |f| %>
+            <%= f.hidden_field :available, value: true %>
+            <%= f.submit "Yes, count me in!" %>
+          <% end %>
+        <% else %>
+          <% suggestion.answers.map { |answer| answer if answer.user == current_user }.each do |existing_answer| %>
+            <%= button_to "Sorry, finally I can't 😿", suggestion_answer_path(suggestion, existing_answer), turbo_confirm: "Are you sure?", :method => :delete %>
+          <% end %>
         <% end %>
       </div>
       <div class="col">

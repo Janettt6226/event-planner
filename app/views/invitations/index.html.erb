@@ -29,9 +29,42 @@
       </div>
     <% end %>
   <% end %>
-</div>
 <%# FIN %>
 
 <%= console %>
 
 <h2>Répondre aux sondages/suggestions</h2>
+
+  <% @undefined_events.each do |event| %>
+    <div class="event-container">
+      <%= render "partials/event_card", event: event %>
+      <h5>Choisis l'option qui te 👢 !</h5>
+      <% event.suggestions.each_with_index do |suggestion, i| %>
+        <div class="row">
+          <div class="col">
+            <% if event.start_time.nil? %>
+              <p>Option <%= i + 1 %>: <%= suggestion.date.to_date.strftime('%A, %B %d, %Y') unless suggestion.date.nil? %></p>
+            <% else %>
+              <p>Option <%= i + 1 %>: <%= suggestion.activity %></p>
+            <% end %>
+          </div>
+          <div class="col">
+            <% unless suggestion.answers.present? %>
+            <%= simple_form_for [suggestion, @answer] do |f| %>
+              <%= f.hidden_field :available, value: true %>
+              <%= f.submit "Yes, count me in!" %>
+            <% end %>
+              <%# <%= link_to "Sorry, finally I can't 😿", suggestion_answer_path([suggestion, @answer]), data: { "turbo-method": :delete,  turbo_confirm: "Are you sure?" } %> %>
+            <% end %>
+          </div>
+          <div class="col">
+            <p>People available:</p>
+            <% suggestion.answers.map { |answer| answer.user.username if answer.available? }.each do |people| %>
+              <ul><li><%= people %></li></ul>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
